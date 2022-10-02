@@ -1,0 +1,8 @@
+pyTelegramBotAPI
+pytest
+pylint
+yfinance
+telethon
+pandas
+openpyxl
+click
