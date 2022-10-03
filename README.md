@@ -12,3 +12,5 @@
     * api_hash = os.getenv('API_HASH')
     * phone = os.getenv('PHONE')
     * username = os.getenv('USERNAME')
+
+- example message scrapped file is on slack group chat
