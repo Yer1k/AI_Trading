@@ -1,3 +1,8 @@
+# do not upload data
+*.json
+*.xlsx
+*.session
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
