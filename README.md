@@ -34,7 +34,7 @@ As simple as that. The `sentiment_generator` function will accept a pandas dataf
 * replace mentions with a flag `@User`
 * removes hashtag signs
 
-2) The sentiment model used can be found here[https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment-latest].
+2) The sentiment model used can be found [here](https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment-latest).
 
 #### Note About Parameters
 `calculate_scores`: if user wants to calculate the polarity scores for Positive, Neutral and Negative sentiments then set this parameter to `True`. By default only sentiment is included in the final output.
