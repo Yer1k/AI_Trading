@@ -38,6 +38,8 @@ As simple as that. The `sentiment_generator` function will accept a pandas dataf
 
 #### Note About Parameters
 `calculate_scores`: if user wants to calculate the polarity scores for Positive, Neutral and Negative sentiments then set this parameter to `True`. By default only sentiment is included in the final output.
+
 `task`: the Roberta-Base sentiment model can perform other tasks as well including emotion, degree of offensiveness of text. These are the possible parameters a user can input for `task`: emoji, emotion, hate, irony, offensive, sentiment-latest . NOTE: besides for 'sentiment-latest', all other tasks have not been tested with the model.
+
 `remove_stopwords`: a boolean to determine whether stopwords should be removed from the text prior to sentiment analysis.
 
