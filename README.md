@@ -14,3 +14,13 @@
     * username = os.getenv('USERNAME')
 
 - example message scrapped file is on slack group chat
+
+### Sentiment Analyzer
+Please see below for an example use case / pipeline for the sentiment analysis:
+
+```
+import pandas as pd
+from flatten_tweets import flatten_tweets
+from sentiment_analyzer import sentiment_generator
+from sentiment_analyzer import find_sentiment
+```
