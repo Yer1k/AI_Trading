@@ -6,4 +6,8 @@ telethon
 pandas
 openpyxl
 click
-pysentimiento
+numpy
+warnings
+nltk
+transformers
+scipy
