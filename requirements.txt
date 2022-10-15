@@ -6,3 +6,4 @@ telethon
 pandas
 openpyxl
 click
+pysentimiento
