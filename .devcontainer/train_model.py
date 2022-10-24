@@ -5,10 +5,10 @@ class Model:
     model = None
     senti_data = pd.DataFrame()
     price_data = pd.DataFrame()
-    def __init__(self, data):
-        self.model = train(data)
-        self.data = data
-        self.predictions = None
+    def __init__(self):
+        self.model = None
+        self.senti_data = pd.DataFrame()
+        self.price_data = pd.DataFrame()
 
     def predict(self):
         self.predictions = self.model.predict(self.data)
@@ -32,11 +32,11 @@ class Model:
     def save_predictions(self):
         pass
 
-    def load_model(self):
-        pass
+    #def load_model(self):
+    #    pass
 
-    def load_data(self):
-        pass
+    #def load_data(self):
+    #    pass
 
     def load_predictions(self):
         pass
