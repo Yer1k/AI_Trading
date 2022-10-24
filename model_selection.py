@@ -2,6 +2,9 @@
 This class implements model selection algorithms. Current Version is 0.1. It is based on AutoTS (More details: https://winedarksea.github.io/AutoTS/build/html/source/tutorial.html).
 The main function is model_selection, which takes a dataframe and a target column name as input, and returns a list of models and their corresponding parameters.
 The output is used as input for model_training.py
+
+input dataframe: a dataframe ["datetime", "value","series_id", "series_name"]
+
 """
 
 
@@ -45,4 +48,4 @@ def model_selection(df_long):
         num_validations=2,
     )
     model = model.fit(df_long, date_col='datetime', value_col='value', id_col='series_id')
-    return model.best_model
+    return model
