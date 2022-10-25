@@ -3,12 +3,15 @@ import sklearn as sk
 import model_selection as ms
 class Model:
     model = None
-    senti_data = pd.DataFrame()
-    price_data = pd.DataFrame()
-    def __init__(self):
+ 
+    #senti_data = pd.DataFrame()
+    #price_data = pd.DataFrame()
+    def __init__(self,data):
         self.model = None
-        self.senti_data = pd.DataFrame()
-        self.price_data = pd.DataFrame()
+        
+
+        #self.senti_data = pd.DataFrame()
+        #self.price_data = pd.DataFrame()
 
     def predict(self):
         self.predictions = self.model.predict(self.data)
@@ -23,14 +26,14 @@ class Model:
     def get_predictions(self):
         return self.predictions
 
-    def save_model(self):
-        pass
+    #def save_model(self):
+    #    pass
 
-    def save_data(self):
-        pass
+    #def save_data(self):
+    #    pass
 
-    def save_predictions(self):
-        pass
+    #def save_predictions(self):
+    #    pass
 
     #def load_model(self):
     #    pass
@@ -42,11 +45,6 @@ class Model:
         pass
 
     # take sentiment data from NLP
-    def get_sentiment_data():
-        pass
-    # take price data from Aditya
-    def get_price_data():
-        pass
 
     # train model with extracted data
     def train(self,data):
@@ -57,4 +55,4 @@ class Model:
             data = ms.model_selection.transform_to_long(data, 'value')
             model = ms.model_selection(data)
         self.model = model
-        return model
+        #return model
