@@ -1,6 +1,7 @@
 from webbrowser import get
 import train_model as tm
 import pandas as pd
+import threading
 
 if __name__ == "__main__":
     senti_model = tm.Model()
@@ -32,3 +33,14 @@ if __name__ == "__main__":
     """
     
     # next step analyze predictions and make decision
+    
+    interval = 15
+
+    def myPeriodicFunction():
+        price_predictions = price_model.predict(forecast_length=3)
+        return price_predictions
+
+    def startTimer():
+        threading.Timer(interval, startTimer).start()
+        myPeriodicFunction()
+        
