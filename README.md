@@ -43,3 +43,8 @@ As simple as that. The `sentiment_generator` function will accept a pandas dataf
 
 `remove_stopwords`: a boolean to determine whether stopwords should be removed from the text prior to sentiment analysis.
 
+# Algorithm and Automation
+
+![framework](https://user-images.githubusercontent.com/55003943/197669184-325a8619-6a53-42bc-bf10-f14f4e8c9001.png)
+
+
