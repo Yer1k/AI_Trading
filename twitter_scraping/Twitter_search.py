@@ -83,4 +83,4 @@ def searchTweets(query, max_results):
 
 
 if __name__ == '__main__':
-    searchTweets('crypto', 10)
+    searchTweets('crypto', 100)

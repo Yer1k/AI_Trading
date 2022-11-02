@@ -55,17 +55,22 @@ def load_model(task="sentiment-latest"):
     return config, tokenizer, model
 
 
-def analyze_sentiment(text, config, tokenizer, model):
+def analyze_sentiment_score(text, config, tokenizer, model):
     # PT
     encoded_input = tokenizer(text, return_tensors="pt")
     output = model(**encoded_input)
     scores = output[0][0].detach().numpy()
     scores = softmax(scores)
     ans = []
-    for i in range(scores.shape[0]):
-        ans.append((config.id2label[i], scores[i]))
-    ans.sort()
-    return ans
+    ranking = np.argsort(scores)
+    ranking = ranking[::-1]
+    label = config.id2label[ranking[0]]
+    if label == "Positive":
+        return scores[ranking[0]]
+    elif label == "Negative":
+        return scores[ranking[0]] * -1
+    else:
+        return 0
 
 
 def return_sentiment(text, config, tokenizer, model):
@@ -82,25 +87,13 @@ def return_sentiment(text, config, tokenizer, model):
 
 def apply_sentiment_to_df(df, config, tokenizer, model, calculate_scores):
     """Apply the sentiment analysis model to the dataframe."""
-    if calculate_scores == True:
-        # calculate the positive sentiment score for each tweet - can comment out if taking too long
-        df["pos_sent_score"] = df["text"].apply(
-            lambda x: analyze_sentiment(x, config, tokenizer, model)[2][1]
-        )
-
-        # calculate the neutral sentiment score for each tweet - can comment out if taking too long
-        df["neutral_sent_score"] = df["text"].apply(
-            lambda x: analyze_sentiment(x, config, tokenizer, model)[1][1]
-        )
-
-        # calculate the negative sentiment score for each tweet - can comment out if taking too long
-        df["neg_sent_score"] = df["text"].apply(
-            lambda x: analyze_sentiment(x, config, tokenizer, model)[0][1]
-        )
-
     df["sentiment"] = df["text"].apply(
         lambda x: return_sentiment(x, config, tokenizer, model)
     )
+    if calculate_scores == True:
+        df["sentiment_score"] = df["text"].apply(
+            lambda x: analyze_sentiment_score(x, config, tokenizer, model)
+        )
     return df
 
 
@@ -126,3 +119,14 @@ def sentiment_generator(
     df = apply_sentiment_to_df(df, config, tokenizer, model, calculate_scores)
 
     return df
+
+
+if __name__ == "__main__":
+    # load data
+    df = pd.read_csv("search_df.csv")
+
+    # generate sentiment
+    df = sentiment_generator(df, calculate_scores=True)
+
+    # save to csv
+    df.to_csv("tweets_sentiment.csv")
