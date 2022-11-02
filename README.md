@@ -15,6 +15,29 @@
 
 - example message scrapped file is on slack group chat
 
+### Twitter Bot
+- the Twitter Bot get the key words generat from Telegram, and searching for Twits related with the key words hastags. 
+- Put the Tweets into dataframe for the sentiment Analyzer
+
+For this project we are using Tweepy package to connect the Twitter API.
+
+```
+import tweepy
+```
+For more Twitter API registration detials, read from website here: https://scottlai.com/2022/09/24/twitter-bot-101/
+
+* The API setting:  tweepy.Client.
+* searching for recent tweets: client.search_recent_tweets.
+* Save the Tweets into CSV format.
+
+Input:
+```
+searchTweets('key_words', max_tweets_amount(less than 100 for each time))
+```
+
+output: dataframe 
+
+
 ### Sentiment Analyzer
 Please see below for an example use case / pipeline for the sentiment analysis:
 
