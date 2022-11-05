@@ -6,8 +6,8 @@ telethon
 pandas
 openpyxl
 click
-numpy
-warnings
+# numpy
+# warnings
 nltk
 transformers
 scipy
