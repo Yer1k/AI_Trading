@@ -123,10 +123,10 @@ def sentiment_generator(
 
 if __name__ == "__main__":
     # load data
-    df = pd.read_csv("search_df.csv")
+    df = pd.read_csv("../data_outputs/search_df_1.csv")
 
     # generate sentiment
     df = sentiment_generator(df, calculate_scores=True)
 
     # save to csv
-    df.to_csv("tweets_sentiment.csv")
+    df.to_csv("tweets_sentiment_1.csv")
