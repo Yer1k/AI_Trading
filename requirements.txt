@@ -7,7 +7,7 @@ pandas
 openpyxl
 click
 # numpy
-# warnings
+#warnings
 nltk
 transformers
 scipy
