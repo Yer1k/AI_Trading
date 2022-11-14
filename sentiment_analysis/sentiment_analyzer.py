@@ -14,6 +14,9 @@ def clean_data(tweets_df, remove_stopwords=False):
 
     warnings.filterwarnings("ignore")
 
+    #replace nan with empty string
+    tweets_df["text"] = tweets_df["text"].fillna('')
+
     # remove all URLs from the text
     tweets_df["text"] = tweets_df["text"].str.replace(r"http\S+", "")
 
@@ -123,10 +126,10 @@ def sentiment_generator(
 
 if __name__ == "__main__":
     # load data
-    df = pd.read_csv("../data_outputs/search_df_1.csv")
+    df = pd.read_csv("../data_outputs/search_df_11142022.csv")
 
     # generate sentiment
     df = sentiment_generator(df, calculate_scores=True)
 
     # save to csv
-    df.to_csv("tweets_sentiment_1.csv")
+    df.to_csv("tweets_sentiment_2.csv")
