@@ -12,3 +12,5 @@ nltk
 transformers
 scipy
 tweepy==4.10.1
+fastapi
+uvicorn
