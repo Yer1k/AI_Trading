@@ -1,4 +1,4 @@
-# AI_Trading Bot
+# Cryptocurrency Data Platform & AI Trading Algorithm
 
 ### Telegram Bot
 
