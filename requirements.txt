@@ -14,3 +14,5 @@ scipy
 tweepy==4.10.1
 fastapi
 uvicorn
+fsspec
+s3fs

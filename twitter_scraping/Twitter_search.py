@@ -31,6 +31,24 @@ def searchTweets(query, max_results):
     # start_time = '2020-01-01T00:00:00Z'
     # Replace with time period of your choice
     # end_time = '2022-10-01T00:00:00Z'   
+
+    auth = tweepy.OAuthHandler(keys.consumer_key, keys.consumer_secret)
+    auth.set_access_token(keys.Token, keys.Token_Secret)
+    api = tweepy.API(auth)
+
+    getClient = tweepy.Client(bearer_token=keys.Bearer_Token,
+                            consumer_key=keys.consumer_key,
+                            consumer_secret=keys.consumer_secret,
+                            access_token=keys.Token,
+                            access_token_secret=keys.Token_Secret)
+    client = getClient
+
+    # read search_df from AWS S3.
+    search_df = pd.read_csv('s3://projecttwitterbot/Searching/ai_search_df.csv',
+                    storage_options={'key': keys.access_key, 'secret': keys.secret_access_key})
+    search_df = search_df.drop(columns=['Unnamed: 0'])                                            # Drop the "Unamed: 0" column
+    search_df['created_at'] = pd.to_datetime(search_df['created_at'], format='%Y-%m-%d %H:%M:%S') # change the created_at column into datatime format
+
     tweets = client.search_recent_tweets(query=query,
                                     #   start_time=start_time,
                                     #   end_time=end_time,
@@ -78,11 +96,11 @@ def searchTweets(query, max_results):
     # merge the search_df_new with the search_df base on the id
     new_df = pd.merge(search_df, search_df_new, on = ['id','created_at','author_id','text','lang','username', 'verified','url','followers_count','following_count','tweet_count'], how='outer')
 
-    # save the dataframe bakc to s3
+    # save the dataframe bakc to s3 - why are we saving search_df and not new_df?
     search_df.to_csv("s3://projecttwitterbot/Searching/ai_search_df.csv",
                      storage_options={'key': keys.access_key, 'secret': keys.secret_access_key})
 
-    return search_df
+    return search_df_new
 
 
 if __name__ == '__main__':

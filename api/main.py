@@ -1,5 +1,10 @@
 from fastapi import FastAPI
+from fastapi.responses import StreamingResponse
+import io
 import uvicorn
+from Twitter_search import searchTweets
+import pandas as pd
+import time
 
 app = FastAPI()
 
@@ -33,20 +38,15 @@ async def get_telegram_messages():
 @app.get("/scrape_twitter")
 async def scrape_twitter():
     """Scrape Twitter for tweets containing cryptocurrency keywords. Perform sentiment analysis and store the results in a database."""
-
-    data = None
-
-    return data
-
-@app.get("/scrape_twitter_aggregate")
-async def scrape_twitter_aggregate():
-    """Aggregate the results at the coin level of the Twitter scraping and display sentiment analysis results."""
-
-    #check whether data exists or not
-
-    data = None
-
-    return data
+    
+    #extract the data
+    data = searchTweets()
+    
+    stream = io.StringIO()
+    data.to_csv(stream, index = False)
+    response = StreamingResponse(iter([stream.getvalue()]), media_type="text/csv")
+    response.headers["Content-Disposition"] = "attachment; filename=tweets.csv"
+    return response
 
 @app.get("/model_predict")
 async def model_predict():
