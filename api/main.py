@@ -36,7 +36,7 @@ async def get_telegram_messages():
 
 @app.get("/scrape_twitter")
 async def scrape_twitter():
-    """Scrape Twitter for tweets containing cryptocurrency keywords. Perform sentiment analysis and store the results in a database."""
+    """Scrape Twitter for tweets containing cryptocurrency keywords. Perform sentiment analysis and download the results."""
     
     #extract the data
     data = searchTweets()
