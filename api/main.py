@@ -3,8 +3,7 @@ from fastapi.responses import StreamingResponse
 import io
 import uvicorn
 from Twitter_search import searchTweets
-import pandas as pd
-import time
+from sentiment_analyzer import sentiment_generator
 
 app = FastAPI()
 
@@ -41,6 +40,9 @@ async def scrape_twitter():
     
     #extract the data
     data = searchTweets()
+
+    #apply sentiment analysis to the data
+    data = sentiment_generator(data, calculate_scores=False, task="sentiment-latest", remove_stopwords=False)
     
     stream = io.StringIO()
     data.to_csv(stream, index = False)
