@@ -77,14 +77,26 @@ arg4 (str): The currency in which the prices are to be returned
 Returns:
 dataframe: Returns a 2-column dataframe containing prices and dates (in yyyy-mm-dd) format
 """
-def wrapper_function(coin_name=default_coin, start_date=default_start_date, end_date=default_end_date, vs_currency=default_curr):
-    coins_list, list_coins_status_code = list_all_coins()
-    coin_id_dict = [x for x in coins_list if x['name'].lower() == coin_name][0]
+def get_prices(coin_name=default_coin, start_date=default_start_date, end_date=default_end_date, vs_currency=default_curr):
+    try:
+        coins_list, list_coins_status_code = list_all_coins()
+        if list_coins_status_code == 429:
+            return {"data":[], "error":"Try after some time, too many requests"}
+        
+        coin_id_dict = [x for x in coins_list if x['name'].lower() == coin_name][0]
 
-    historic_data, historic_prices_status_code = get_historic_price(coin_id_dict['id'], start_date, end_date, vs_currency)  
-    historic_data_formatted = convert_output_format(historic_data)
-    return historic_data_formatted
+        historic_data, historic_prices_status_code = get_historic_price(coin_id_dict['id'], start_date, end_date, vs_currency)  
+        if historic_prices_status_code == 429:
+            return {"data":[], "error":"Try after some time, too many requests"}
+        historic_data_formatted = convert_output_format(historic_data)
+        historic_data_formatted['coin_name'] = coin_name
+        historic_data_formatted['currency_code'] = vs_currency
+        return {"data":historic_data_formatted.to_dict(orient='records'), "error":""}
+    
+    except Exception as ee:
+        return {"data":[], "error":str(ee)}
+
 
 if __name__ == "__main__":
-    prices_df = wrapper_function()
+    prices_df = get_prices()
     print(prices_df.head())

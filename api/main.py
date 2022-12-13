@@ -4,7 +4,11 @@ import io
 import uvicorn
 from Twitter_search import searchTweets
 from sentiment_analyzer import sentiment_generator
+import sys
 
+
+sys.path.append('../query_coin_prices')
+import query_coin_prices
 app = FastAPI()
 
 
@@ -15,16 +19,14 @@ async def root():
     return {"message": "Hello! This is the home page for querying the cryptocurrency data."}
 
 @app.get("/query_coin_price/{coin_name}")
-async def get_coin_price(coin_name: str):
+async def get_coin_price(coin_name: str, start_date: str='2022-01-01', end_date: str="2022-06-01", curr_code: str="usd"):
     """Get the most up-to-date price of a cryptocurrency. Takes in a coin name as a parameter.
     Parameters
     ----------
     returns : dict
     """
-    coin_name = coin_name.lower().value #not sure if we need to call value.
-    data = None
-
-    return data
+    return_data = query_coin_prices.get_prices(coin_name=coin_name, start_date=start_date, end_date=end_date, vs_currency=curr_code)
+    return return_data
 
 @app.get("/query_telegram_messages")
 async def get_telegram_messages():
