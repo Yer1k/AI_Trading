@@ -75,6 +75,14 @@ Data Cleaning steps:
 The AI Algorithm will take in the scraped twitter data and apply sentiment analysis for each tweet. Along with the coin price information, it will then generate a trading strategy for the user based on the signals that the model generates. We are using a time-series model trained on the twitter and sentiment analysis. Please see below for more details about the architecture of the model: 
 ![framework](https://user-images.githubusercontent.com/55003943/197669184-325a8619-6a53-42bc-bf10-f14f4e8c9001.png)
 
+## API
+Please perform the following steps to access the Swagger Documentation of the data platform:
+
+1) run `python ./api/main.py` and open the application in a browser
+2) type in `/docs` after the root url to open up the Swagger Documentation
+
+The user should be able to 
+
 ## Demo Video
 @All - add video
 
