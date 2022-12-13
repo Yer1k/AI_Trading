@@ -69,8 +69,11 @@ Data Cleaning steps:
 * replace mentions with a flag `@User`
 * removes hashtag signs
 
-# Algorithm and Automation
-The AI Algorithm will take in the scraped twitter data and apply sentiment analysis for each tweet. Along with the coin price information, it will then generate a trading strategy for the user. We are using a time-series model trained on the twitter and sentiment analysis. Please see below for more details about the architecture of the model: 
+## Algorithm and Automation
+The AI Algorithm will take in the scraped twitter data and apply sentiment analysis for each tweet. Along with the coin price information, it will then generate a trading strategy for the user based on the signals that the model generates. We are using a time-series model trained on the twitter and sentiment analysis. Please see below for more details about the architecture of the model: 
 ![framework](https://user-images.githubusercontent.com/55003943/197669184-325a8619-6a53-42bc-bf10-f14f4e8c9001.png)
+
+## Demo Video
+@All - add video
 
 
