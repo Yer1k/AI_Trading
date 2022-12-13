@@ -81,7 +81,7 @@ Please perform the following steps to access the Swagger Documentation of the da
 1) run `python ./api/main.py` and open the application in a browser
 2) type in `/docs` after the root url to open up the Swagger Documentation
 
-The user should be able to 
+The user should be able to access Telegram, Twitter and Coin price data after running the API.
 
 ## Demo Video
 @All - add video
