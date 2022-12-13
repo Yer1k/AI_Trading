@@ -9,10 +9,10 @@ The data regarding coin trends and prices was scraped using Telegram, Twitter an
 
 ## Architecture and Program Description
 
-<INSERT ARCHITECTURE DIAGRAM HERE>
+![architecture_diagram drawio (3)](https://user-images.githubusercontent.com/25168588/207426200-9d74b4d0-12f0-4687-b49b-c770a591e2c8.png)
 
 ### Telegram Bot
-The Telegram Bot will by default scrape all messages from the Airdrop Alert Channel, which contains information about most recent coin releases and trends in the cryptocurrency market. 
+The Telegram Bot will by default scrape all messages from the Airdrop Alert Channel, which contains information about most recent coin releases and trends in the cryptocurrency market. The Telegram Bot will identify the key words (coins) from the channel messages and send them over to the Twitter Bot.
 
 Please see the below for more details about how to set up API connection:
     * Add the following to your GitHub Codespace or Local file
@@ -23,15 +23,12 @@ Please see the below for more details about how to set up API connection:
     * username = os.getenv('USERNAME')
 
 ### Twitter Bot
-- the Twitter Bot get the key words generat from Telegram, and searching for Twits related with the key words hastags. 
-- Put the Tweets into dataframe for the sentiment Analyzer
-
-For this project we are using Tweepy package to connect the Twitter API.
+The Twitter Bot accepts the key words generated from Telegram, and search for tweets related to the key words. The bot will return a dataframe containing all the tweets scraped for a specified timeframe. The bot uses the `tweepy` package in Python to connect to the Twitter API. See below for more details:
 
 ```
 import tweepy
 ```
-For more Twitter API registration detials, read from website here: https://scottlai.com/2022/09/24/twitter-bot-101/
+For more Twitter API registration details, read from website here: https://scottlai.com/2022/09/24/twitter-bot-101/
 
 * The API setting:  tweepy.Client.
 * searching for recent tweets: client.search_recent_tweets.
@@ -44,8 +41,16 @@ searchTweets('key_words', max_tweets_amount(less than 100 for each time))
 
 output: dataframe 
 
+### Coin Price Query Bot
+The Coin price query bot will return a payload that contains the most up-to-date cryptocurrency prices for a specified timeframe. The bot uses the Coingecko API to scrape the data. See below for more details:
+
+@Aditya to add more information.
 
 ### Sentiment Analyzer
+The sentiment analysis component will predict the sentiment of a given tweet and generate a sentiment score between -1 and 1 for a tweet. 
+
+The sentiment analyzer is a roBERTa-base model that was trained on ~124M Tweets. More information about the model used can be found [here](https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment-latest).
+
 Please see below for an example use case / pipeline for the sentiment analysis:
 
 ```
@@ -54,9 +59,9 @@ from sentiment_analyzer import sentiment_generator
 df = sentiment_generator(df, calculate_scores=False, task="sentiment-latest", remove_stopwords=False)
 ```
 
-As simple as that. The `sentiment_generator` function will accept a pandas dataframe `df` and output another pandas dataframe `df` with one or more columns reporting information about the sentiment of the tweet (see below for more details). All tweets are stored under the field `text`.
+The `sentiment_generator` function will accept a pandas dataframe `df` and output another pandas dataframe `df` with one or more columns reporting information about the sentiment of the tweet (see below for more details). All tweets are stored under the field `text`. The function will also take additional three parameters: 1) `calculate_scores` will generate a sentiment score in addition to a sentiment label ('Positive', 'Negative', 'Neutral') if set to `True`. 2) 'remove_stopwords' will remove stopwords from the tweets if set to 'True'. 3) `task`: the Roberta-Base sentiment model can perform other tasks as well including emotion, degree of offensiveness of text. These are the possible parameters a user can input for `task`: emoji, emotion, hate, irony, offensive, sentiment-latest . NOTE: besides for 'sentiment-latest', all other tasks have not been tested with the model.
 
-1) The function will first clean and preprocess the data
+Data Cleaning steps:
 * lowercase all tweets
 * remove any URLs.
 * an option to remove all stopwords. If user sets `remove_stopwords=True` in the `sentiment_generator` function then stopwords will be removed. By default, stopwords are preserved.
@@ -64,17 +69,8 @@ As simple as that. The `sentiment_generator` function will accept a pandas dataf
 * replace mentions with a flag `@User`
 * removes hashtag signs
 
-2) The sentiment model used can be found [here](https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment-latest).
-
-#### Note About Parameters
-`calculate_scores`: if user wants to calculate the polarity scores for Positive, Neutral and Negative sentiments then set this parameter to `True`. By default only sentiment is included in the final output.
-
-`task`: the Roberta-Base sentiment model can perform other tasks as well including emotion, degree of offensiveness of text. These are the possible parameters a user can input for `task`: emoji, emotion, hate, irony, offensive, sentiment-latest . NOTE: besides for 'sentiment-latest', all other tasks have not been tested with the model.
-
-`remove_stopwords`: a boolean to determine whether stopwords should be removed from the text prior to sentiment analysis.
-
 # Algorithm and Automation
-
+The AI Algorithm will take in the scraped twitter data and apply sentiment analysis for each tweet. Along with the coin price information, it will then generate a trading strategy for the user. We are using a time-series model trained on the twitter and sentiment analysis. Please see below for more details about the architecture of the model: 
 ![framework](https://user-images.githubusercontent.com/55003943/197669184-325a8619-6a53-42bc-bf10-f14f4e8c9001.png)
 
 
