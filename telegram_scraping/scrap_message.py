@@ -1,4 +1,5 @@
 import os
+from dotenv import load_dotenv
 from datetime import date, datetime
 import pandas as pd
 import json
@@ -9,6 +10,7 @@ from telethon.tl.types import (
     PeerChannel
 )
 
+load_dotenv()
 api_id = os.getenv('API_ID')
 api_hash = os.getenv('API_HASH')
 

@@ -17,3 +17,5 @@ uvicorn
 fsspec
 s3fs
 torch
+# dotenv
+python-dotenv
