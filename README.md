@@ -15,12 +15,14 @@ The data regarding coin trends and prices was scraped using Telegram, Twitter an
 The Telegram Bot will by default scrape all messages from the Airdrop Alert Channel, which contains information about most recent coin releases and trends in the cryptocurrency market. The Telegram Bot will identify the key words (coins) from the channel messages and send them over to the Twitter Bot.
 
 Please see the below for more details about how to set up API connection:
+```
     * Add the following to your GitHub Codespace or Local file
     * API_ID, API_HASH, PHONE, USERNAME
     * api_id = os.getenv('API_ID')
     * api_hash = os.getenv('API_HASH')
     * phone = os.getenv('PHONE')
     * username = os.getenv('USERNAME')
+```
 
 ### Twitter Bot
 The Twitter Bot accepts the key words generated from Telegram, and search for tweets related to the key words. The bot will return a dataframe containing all the tweets scraped for a specified timeframe. The bot uses the `tweepy` package in Python to connect to the Twitter API. See below for more details:
