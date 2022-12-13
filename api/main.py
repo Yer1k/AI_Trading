@@ -5,7 +5,9 @@ import uvicorn
 from Twitter_search import searchTweets
 from sentiment_analyzer import sentiment_generator
 import sys
-
+import json
+import pandas as pd
+from pprint import pprint
 
 sys.path.append('../query_coin_prices')
 import query_coin_prices
@@ -28,13 +30,14 @@ async def get_coin_price(coin_name: str, start_date: str='2022-01-01', end_date:
     return_data = query_coin_prices.get_prices(coin_name=coin_name, start_date=start_date, end_date=end_date, vs_currency=curr_code)
     return return_data
 
-@app.get("/query_telegram_messages")
-async def get_telegram_messages():
+@app.get("/query_telegram_messages/")
+async def get_telegram_messages(number_of_messages: int=10):
     """Get Telegram messages from the Crypto Airdrop Alert channel."""
-
-    data = None
-
+    # return the payload of channel_messages.json as a dict
+    data = pd.read_csv('../data_outputs/channel_messages.csv', nrows=number_of_messages)
+    data = data['message'].to_dict()
     return data
+
 
 @app.get("/scrape_twitter")
 async def scrape_twitter():
@@ -44,7 +47,7 @@ async def scrape_twitter():
     data = searchTweets()
 
     #apply sentiment analysis to the data
-    data = sentiment_generator(data, calculate_scores=False, task="sentiment-latest", remove_stopwords=False)
+    #data = sentiment_generator(data, calculate_scores=False, task="sentiment-latest", remove_stopwords=False)
     
     stream = io.StringIO()
     data.to_csv(stream, index = False)
