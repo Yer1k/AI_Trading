@@ -1,19 +1,26 @@
 # Cryptocurrency Data Platform & AI Trading Algorithm
 
+This repository contains the source code, config files, and a short demo of the Cryptocurrency Data Platform & AI Trading Algorithm. 
+
+## Key Objectives
+The goal of the service is to provide a data platform that returns the most up-to-date information about the cryptocurrency market, and provide an AI Trading model that predicts the future sentiment of a currency to determine an optimal trading strategy. 
+
+The data regarding coin trends and prices was scraped using Telegram, Twitter and Coingecko APIs and the AI Trading model is using the coin price and sentiment information to determine whether to invest in a coin. 
+
+## Architecture and Program Description
+
+<INSERT ARCHITECTURE DIAGRAM HERE>
+
 ### Telegram Bot
+The Telegram Bot will by default scrape all messages from the Airdrop Alert Channel, which contains information about most recent coin releases and trends in the cryptocurrency market. 
 
-
-- able to scrap all message from specific channel
-- please input your own account credential to test it
-
+Please see the below for more details about how to set up API connection:
     * Add the following to your GitHub Codespace or Local file
     * API_ID, API_HASH, PHONE, USERNAME
     * api_id = os.getenv('API_ID')
     * api_hash = os.getenv('API_HASH')
     * phone = os.getenv('PHONE')
     * username = os.getenv('USERNAME')
-
-- example message scrapped file is on slack group chat
 
 ### Twitter Bot
 - the Twitter Bot get the key words generat from Telegram, and searching for Twits related with the key words hastags. 
