@@ -3,6 +3,6 @@ install:
 		pip install -r requirements.txt
 
 format:	
-	black ./api ./query_coin_prices ./sentiment_analysis ./telegram_scraping ./twitter_scraping
+	black ./api/*.py ./query_coin_prices/*.py ./sentiment_analysis/*.py ./telegram_scraping/*.py ./twitter_scraping/*.py
 
 all: install format  
