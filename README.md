@@ -1,5 +1,7 @@
 # Cryptocurrency Data Platform & AI Trading Algorithm
 
+[![CI](https://github.com/zhanyil2/AI_Trading/actions/workflows/main.yml/badge.svg)](https://github.com/zhanyil2/AI_Trading/actions/workflows/main.yml)
+
 This repository contains the source code, config files, and a short demo of the Cryptocurrency Data Platform & AI Trading Algorithm. 
 
 ## Key Objectives
