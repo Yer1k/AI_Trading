@@ -2,13 +2,8 @@ install:
 	pip install --upgrade pip &&\
 		pip install -r requirements.txt
 
-test:
-	python -m pytest -vv *.py dblib
-
 format:	
-	black *.py
+	black ./api ./query_coin_prices ./sentiment_analysis ./telegram_scraping ./twitter_scraping
 
-lint:
-	pylint --disable=R,C --ignore-patterns=test_.*?py *.py dblib
 
-all: install lint test
+all: install format  

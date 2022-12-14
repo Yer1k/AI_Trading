@@ -14,8 +14,8 @@ def clean_data(tweets_df, remove_stopwords=False):
 
     warnings.filterwarnings("ignore")
 
-    #replace nan with empty string
-    tweets_df["text"] = tweets_df["text"].fillna('')
+    # replace nan with empty string
+    tweets_df["text"] = tweets_df["text"].fillna("")
 
     # remove all URLs from the text
     tweets_df["text"] = tweets_df["text"].str.replace(r"http\S+", "")
