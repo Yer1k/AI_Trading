@@ -19,3 +19,4 @@ s3fs
 torch
 # dotenv
 python-dotenv
+black
