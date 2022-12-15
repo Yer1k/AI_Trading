@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 import io
 import uvicorn
-from Twitter_search import searchTweets
+#from Twitter_search import searchTweets
 from sentiment_analyzer import sentiment_generator
 import sys
 import json
@@ -65,7 +65,7 @@ async def scrape_twitter(apply_sentiment: ApplySentiment):
     """Scrape Twitter for tweets containing cryptocurrency keywords. Perform sentiment analysis and download the results."""
 
     # extract the data
-    data = searchTweets()
+    data = pd.read_csv("../data_outputs/search_df.csv")
     
     if apply_sentiment.value == "yes":
         # apply sentiment analysis to the data
