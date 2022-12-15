@@ -12,6 +12,12 @@ from pprint import pprint
 sys.path.append("../query_coin_prices")
 import query_coin_prices
 
+from enum import Enum
+
+class ApplySentiment(str, Enum):
+    yes = "yes"
+    no = "no"
+
 app = FastAPI()
 
 
@@ -55,14 +61,15 @@ async def get_telegram_messages(number_of_messages: int = 10):
 
 
 @app.get("/scrape_twitter")
-async def scrape_twitter():
+async def scrape_twitter(apply_sentiment: ApplySentiment):
     """Scrape Twitter for tweets containing cryptocurrency keywords. Perform sentiment analysis and download the results."""
 
     # extract the data
     data = searchTweets()
-
-    # apply sentiment analysis to the data
-    # data = sentiment_generator(data, calculate_scores=False, task="sentiment-latest", remove_stopwords=False)
+    
+    if apply_sentiment.value == "yes":
+        # apply sentiment analysis to the data
+        data = sentiment_generator(data, calculate_scores=False, task="sentiment-latest", remove_stopwords=False)
 
     stream = io.StringIO()
     data.to_csv(stream, index=False)
