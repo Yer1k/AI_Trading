@@ -2,9 +2,9 @@ from webbrowser import get
 import train_model as tm
 import pandas as pd
 import threading
-
-if __name__ == "__main__":
     """
+if __name__ == "__main__":
+
     senti_model = tm.Model()
     price_model = tm.Model()
     
@@ -46,8 +46,7 @@ if __name__ == "__main__":
         threading.Timer(interval, startTimer).start()
         myPeriodicFunction()
     """
-        
-if __name__ == "__main__":
+def trading():
     df = pd.read_csv('/Users/a563186832/Documents/GitHub/AI_Trading/data_outputs/tweets_sentiment_1.csv') # change to data path
     sentiment = df.groupby(["created_at"]).sentiment_score.mean().reset_index()
     model = read_joblib('/Users/a563186832/Documents/GitHub/AI_Trading/models/sentiment_model.joblib') # change to model path
@@ -62,3 +61,7 @@ if __name__ == "__main__":
         print("Buy")
     if coefficients < 0:
         print("Sell")            
+
+        
+if __name__ == "__main__":
+    trading()
